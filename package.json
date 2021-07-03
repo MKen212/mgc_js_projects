@@ -1,0 +1,23 @@
+{
+  "name": "mgc_js_projects",
+  "version": "1.0.0",
+  "description": "JavaScript Projects from Mikke Goes Coding",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MKen212/mgc_js_projects.git"
+  },
+  "author": "Malarena SA",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MKen212/mgc_js_projects/issues"
+  },
+  "homepage": "https://github.com/MKen212/mgc_js_projects#readme",
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-plugin-html": "^6.1.2"
+  }
+}
