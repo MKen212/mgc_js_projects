@@ -17,22 +17,14 @@ body {
   -ms-user-select: none;
 }
 
-.main {
+/* Home Div */
+.home {
   font-family: "Roboto", sans-serif;
-  font-size: 1rem;
   margin: 30px auto;
-  color: black;
   text-align: center;
 }
 
-h1, h2, h3 {
-  font-family: "Roboto", sans-serif;
-  font-weight: 100;
-  font-size: 2.6em;
-  text-transform: uppercase;
-}
-
-/* Header Home Button */
+/* Home Button */
 .btn-hero {
   background: transparent;
   color: black;
@@ -52,6 +44,21 @@ h1, h2, h3 {
 .btn-hero:hover {
   color: white;
   background: black;
+}
+
+.main {
+  font-family: "Roboto", sans-serif;
+  font-size: 1rem;
+  margin: 30px auto;
+  color: black;
+  text-align: center;
+}
+
+h1, h2, h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  font-size: 2.6em;
+  text-transform: uppercase;
 }
 
 .calculator {

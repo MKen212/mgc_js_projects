@@ -17,7 +17,14 @@ body {
   height: 100%;
 }
 
-/* Header Home Button */
+/* Home Div */
+.home {
+  font-family: "Roboto", sans-serif;
+  margin: 30px auto;
+  text-align: center;
+}
+
+/* Home Button */
 .btn-hero {
   background: transparent;
   color: black;
