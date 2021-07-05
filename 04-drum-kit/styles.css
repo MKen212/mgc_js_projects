@@ -1,0 +1,157 @@
+/* CSS for 04-Drum Kit */
+
+/* Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Handlee|Pacifico");
+
+html, body {
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+}
+
+/* Home Div */
+.home {
+  font-family: "Roboto", sans-serif;
+  margin: 30px auto;
+  text-align: center;
+}
+
+/* Home Button */
+.btn-hero {
+  background: transparent;
+  color: black;
+  letter-spacing: 0.1rem;
+  display: inline-block;
+  font-weight: 700;
+  transition: all 0.3s linear;
+  border: 2px solid black;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+.btn-hero:hover {
+  color: white;
+  background: black;
+}
+
+/* Main */
+.main-wrapper {
+  margin: 30px auto 0;
+  width: 1080px;
+  text-align: center;
+}
+
+.main-title {
+  font-family: "Pacifico", cursive;
+  text-align: center;
+  font-size: 3.2em;
+  color: #cb2026;
+  text-shadow: 1px 1px 1px #5a0b0d;
+}
+
+/* Drum Kit */
+.drum-kit-wrapper {
+  position: relative;
+  width: 600px;
+  margin: -100px auto 0;
+}
+
+.drum-kit {
+  position: relative;
+  width: 100%;
+  height: 520px;
+}
+
+.crash-cymbal {
+  position: absolute;
+  top: 114px;
+  left: 80px;
+  transform: rotate(-7.2deg) scale(1.5);
+  transition: all ease-in-out 0.042s;
+}
+
+.hihat-top-cymbal {
+  position: absolute;
+  top: 166px;
+  right: 71px;
+  transform: scale(1.35);
+  z-index: 0;
+  transition: all ease-in-out 0.042s;
+}
+
+/* Drum Kit Key Labels */
+.key {
+  position: absolute;
+  display: inline-block;
+  transition: all ease-in-out 0.042s;
+  background: #eaeaea;
+  font-size: 1.5em;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+  border-radius: 4px;
+  border: 3px solid #aaa;
+  color: #444;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.65);
+  z-index: 2;
+}
+
+.key.snare {
+  top: 280px;
+  right: 145px;
+}
+
+.key.kick {
+  top: 355px;
+  right: 250px;
+}
+
+.key.kick2 {
+  top: 355px;
+  right: 308px;
+}
+
+.key.tom-high {
+  top: 240px;
+  right: 227px;
+}
+
+.key.tom-mid {
+  top: 220px;
+  left: 222px;
+}
+
+.key.tom-low {
+  top: 320px;
+  left: 133px;
+}
+
+.key.crash {
+  top: 80px;
+  left: 75px;
+}
+
+.key.ride {
+  top: 87px;
+  left: 165px;
+}
+
+.key.hihat-open {
+  top: 144px;
+  right: 165px;
+}
+
+.key.hihat-closed {
+  top: 150px;
+  right: 60px;
+}
+
+.playing {
+  transform: scale(1.12);
+}
+
