@@ -155,3 +155,47 @@ html, body {
   transform: scale(1.12);
 }
 
+/* Key Mapping List */
+.key-map-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 700px;
+  width: 250px;
+  background: #111;
+  z-index: 3;
+}
+
+.key-map-wrapper > h2 {
+  color: #fff;
+  font-family: "Handlee", cursive;
+  margin-bottom: 35px;
+  border-bottom: 1px solid #fff;
+  padding-bottom: 20px;
+}
+
+.key-map-list {
+  list-style: none;
+  color: #fff;
+  text-align: left;
+}
+
+.key-map-list > li {
+  margin-bottom: 25px;
+}
+
+.key-code {
+  color: #444;
+  background-color: #eaeaea;
+  font-size: 1.25em;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 3px solid #aaa;
+}
+
+.key-sound {
+  font-size: 1.2em;
+  margin-left: 10px;
+  font-family: "Handlee", cursive;
+  vertical-align: middle;
+}
