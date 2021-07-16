@@ -1,12 +1,10 @@
 "use strict";
-// 05 - Colour Game JS - UPDATED with lives
+// 05 - Colour Game JS
 
 // Initialise working variables
 let numSquares = 6;
 let colours = [];
 let pickedColour;
-let lives = 3;
-let curLives = lives;
 
 // Get HTML Elements
 const heading = document.getElementById("heading");
@@ -15,13 +13,29 @@ const resetBtn = document.getElementById("reset");
 const message = document.getElementById("message");
 const modeButtons = document.querySelectorAll(".mode");
 const squares = document.querySelectorAll(".square");
-const livesDisplay = document.getElementById("livesDisplay");
 
 
 // Setup the reset event listener
 resetBtn.addEventListener("click", () => {
-  curLives = lives;
   startUp();
+});
+
+// Setup the squares event listeners
+squares.forEach((square) => {
+  // Add click event listener for when square is clicked
+  square.addEventListener("click", (event) => {
+    const clickedColour = event.target.style.backgroundColor;
+    // console.log(clickedColour);
+    // Check if colour picked is correct
+    if (clickedColour === pickedColour) {
+      message.textContent = "Correct";
+      resetBtn.textContent = "Play Again";
+      changeColours(pickedColour);
+    } else {
+      event.target.style.backgroundColor = "#232323";
+      message.textContent = "Try Again";
+    }
+  });
 });
 
 // Setup the Mode event listeners
@@ -38,10 +52,8 @@ modeButtons.forEach((modeButton) => {
     // Update the number of squares to populate based on the mode
     if (event.target.textContent === "Easy") {
       numSquares = 3;
-      lives = 2;
     } else {
       numSquares = 6;
-      lives = 3;
     }
 
     // Re-Start the game
@@ -65,38 +77,10 @@ function startUp() {
     if (colours[index]) {
       square.style.display = "block";
       square.style.backgroundColor = colours[index];
-      square.addEventListener("click", squareClick);
     } else {
       square.style.display = "none";
     }
   });
-
-  // Display the lives
-  curLives = lives;
-  displayLives();
-}
-
-// Function for square click event
-function squareClick(event) {
-  // Check how many lives left
-  if (curLives <= 0) {
-    message.textContent = "Out of Lives!";
-    return;
-  }
-  const clickedColour = event.target.style.backgroundColor;
-  // console.log(clickedColour);
-  // Check if colour picked is correct
-  if (clickedColour === pickedColour) {
-    message.textContent = "Correct";
-    resetBtn.textContent = "Play Again";
-    changeColours(pickedColour);
-  } else {
-    event.target.style.backgroundColor = "#232323";
-    message.textContent = "Try Again";
-    curLives -= 1;
-    displayLives();
-    event.target.removeEventListener("click", squareClick);
-  }
 }
 
 // Function to change colours on success
@@ -104,7 +88,6 @@ function changeColours(colour) {
   squares.forEach((square) => {
     square.style.backgroundColor = colour;
     heading.style.backgroundColor = colour;
-    square.removeEventListener("click", squareClick);
   });
 }
 
@@ -129,18 +112,6 @@ function getColours(num) {
 function chooseColour() {
   const chosen = Math.floor(Math.random() * colours.length);
   return colours[chosen];
-}
-
-// Function to display the number of lives
-function displayLives() {
-  let livesHTML = "";
-  for (let i = 1; i <= curLives; i++) {
-    if (i > 1) {
-      livesHTML += `  `;
-    }
-    livesHTML += `<i class="far fa-heart"></i>`;
-  }
-  livesDisplay.innerHTML = livesHTML;
 }
 
 // Start the game
