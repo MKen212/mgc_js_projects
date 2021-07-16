@@ -1,0 +1,194 @@
+/* CSS for 06-Hangman */
+
+/* Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+
+
+/* Variables */
+:root {
+  --orange: #ffa600;
+  --green: #c1d72e;
+  --blue: #82d2e5;
+  --white: #fff;
+  --base-colour: var(--green);
+}
+
+body {
+  background: var(--base-colour);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--white);
+  height: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+
+/* Home Div */
+.home {
+  font-family: "Roboto", sans-serif;
+  margin: 30px auto;
+  text-align: center;
+}
+
+/* Home Button */
+.btn-hero {
+  background: transparent;
+  color: black;
+  letter-spacing: 0.1rem;
+  display: inline-block;
+  font-weight: 700;
+  transition: all 0.3s linear;
+  border: 2px solid black;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.btn-hero:hover {
+  color: white;
+  background: black;
+}
+
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.wrapper::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.selected {
+  cursor: default;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+  transition: all 0.3s ease-in-out;
+  -moz-transition:all 0.3s ease-in-out;
+  -webkit-transition:all 0.3s ease-in-out;
+}
+
+canvas {
+  color: var(--white);
+  border: var(--white) dashed 2px;
+  padding: 15px;
+}
+
+h1, h2, h3 {
+  font-family: "Roboto", sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  margin: 5px 0;
+}
+
+h1 {
+  font-size: 2.6em;
+}
+
+h2 {
+  font-size: 1.6em;
+}
+
+p {
+  font-size: 1.6em;
+  margin: 0.5em auto;
+}
+
+button {
+  background: var(--base-colour);
+  color: var(--white);
+  border: solid 1px var(--white);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.2em;
+  width: 180px;
+  margin: 10px;
+  padding: 18px 10px;
+  outline: none;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px; 
+}
+
+button:hover {
+  background: var(--white);
+  color: var(--base-colour);
+  border: solid 1px var(--white);
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+}
+
+#alphabet {
+  margin: 15px auto;
+  padding: 0;
+  max-width: 900px;
+}
+
+#alphabet::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+#alphabet li {
+  float: left;
+  margin: 0 10px 10px 0;
+  list-style: none;
+  width: 35px;
+  height: 30px;
+  padding-top: 10px;
+  cursor: pointer;
+  background: var(--white);
+  color: var(--base-colour);
+  border: solid 1px var(--white);
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px; 
+}
+
+#alphabet li:hover {
+  background: var(--base-colour);
+  color: var(--white);
+  border: solid 1px var(--white);
+}
+
+#myWord {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+#myWord li {
+  position: relative;
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+  padding: 0 10px;
+  font-size: 1.6em;
+}
+
+#message {
+  font-size: 1.6em;
+  text-align: center;
+  display: block;
+}
+
+
+@media (max-width: 767px) {
+  #alphabet {
+    padding: 0 0 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  #alphabet {
+    padding: 0 0 0 25px;
+  }
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Hangman" />
+  <meta name="author" content="Cathy Dutton, Malarena SA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Hangman</title>
+
+  <!-- StyleSheets -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header>
+    <!-- Home Button -->
+    <div class="home">
+      <h4><a class="btn-hero" href="../index.html">Home</a></h4>
+    </div>
+
+    <!-- Heading -->
+    <div class="wrapper">
+      <h1>Hangman</h1>
+      <!-- <h2>JavaScript Hangman Game</h2> -->
+      <p>Use the alphabet below to guess the word, or click [hint] to get a clue.</p>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main>
+    <div class="wrapper">
+      <div id="letters">
+        <!-- Placeholder for Letter Buttons -->
+      </div>
+
+      <p>Your chosen category is: <span id="category"></span></p>
+
+      <p id="hint">
+        <!-- Placeholder for Hint -->
+      </p>
+
+      <div id="myGuess">
+        <!-- Placeholder for Player Guess -->
+      </div>
+
+      <p id="message">
+        <!-- Placeholder for Messages -->
+      </p>
+
+      <canvas id="hangMan" width="150" height="150">Sorry - Your browser does not support the HTML5 Canvas Tag</canvas>
+
+      <div class="container">
+        <button id="hintBtn">Hint</button>
+        <button id="resetBtn">Play again</button>
+      </div>
+    </div>
+  </main>
+  
+  <!-- JavaScript -->
+  <script src="./app.js" defer></script>
+</body>
+
+</html>
