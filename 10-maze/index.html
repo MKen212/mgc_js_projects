@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Maze Game" />
+  <meta name="author" content="Martin, Malarena SA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Maze Game</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="gradient"></div>
+  <div class="page">
+    <!-- Header -->
+    <header>
+      <!-- Home Button -->
+      <div class="home">
+        <h4><a class="btn-hero" href="../index.html">Home</a></h4>
+        <h1>Maze</h1>
+      </div>
+    </header>
+
+    <!-- Message Container displayed at end of game -->
+    <div id="messageContainer">
+      <div id="message">
+        <h1>Congratulations!</h1>
+        <p>You are done.</p>
+        <p id="moves"></p>
+        <input id="okBtn" type="button" value="Cool!" />
+      </div>
+    </div>
+
+    <!-- Top Menu -->
+    <div id="menu">
+      <div class="custom-select">
+        <select id="levelSelect">
+          <option value="10">Easy</option>
+          <option value="15">Medium</option>
+          <option value="25">Hard</option>
+          <option value="38">Extreme</option>
+        </select>
+      </div>
+      <input id="startBtn" type="button" value="Start" />
+    </div>
+
+    <!-- Main Maze -->
+    <div id="view">
+      <div id="mazeContainer">
+        <canvas id="mazeCanvas" class="maze" height="1100" width="1100"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.18/jquery.touchSwipe.min.js"></script>
+  <script src="./app.js" defer></script>
+</body>
+
+</html>
