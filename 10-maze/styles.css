@@ -108,7 +108,7 @@ html, body {
   transition-duration: 1s;
   transition-timing-function: linear;
   top: 75px;
-  opacity: 0;
+  opacity: 100;
   display: inline-block;
   background-color: rgba(0, 0, 0, 0.3);
   margin: auto;
