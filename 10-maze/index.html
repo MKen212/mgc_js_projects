@@ -31,7 +31,7 @@
         <h1>Congratulations!</h1>
         <p>You are done.</p>
         <p id="moves"></p>
-        <input id="okBtn" type="button" value="Cool!" />
+        <input id="coolBtn" type="button" onclick="toggleVisibility('messageContainer')" value="Cool!" />
       </div>
     </div>
 
@@ -45,13 +45,13 @@
           <option value="38">Extreme</option>
         </select>
       </div>
-      <input id="startBtn" type="button" value="Start" />
+      <input id="startBtn" type="button" onclick="startGame()" value="Start" />
     </div>
 
     <!-- Main Maze -->
     <div id="view">
       <div id="mazeContainer">
-        <canvas id="mazeCanvas" class="maze" height="600" width="600"></canvas>
+        <canvas id="mazeCanvas" class="maze" height="1100" width="1100"></canvas>
       </div>
     </div>
   </div>

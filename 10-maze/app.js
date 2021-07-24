@@ -1,11 +1,17 @@
+/* globals $ */
 "use strict";
 // 10 - Maze JS
 
 // Global Variables
+let player;  // Player Object
+let playerImg;  // Player Image
+let endImg;  // End Image
+let maze;  // Maze Object
+let draw;  // Drawing Object
+let cellSize;  // Cell Size of maze
+let difficulty;  // Difficulty level of game
 
-// Get HTML Elements
-
-
+// Get canvas HTML Element & context
 const canvas = document.getElementById("mazeCanvas");
 const context = canvas.getContext("2d");
 
@@ -148,19 +154,14 @@ function DrawMaze(Maze, CellSize, EndSprite = null) {
   let cellSize = CellSize;  // Cell Size based on canvas
   context.lineWidth = cellSize / 40;
   
-  // Set drawEndMethod to be used depending on whether sprite supplied
-  let drawEndMethod;
-  if (EndSprite != null) {
-    drawEndMethod = drawEndSprite;
-  } else {
-    drawEndMethod = drawEndFlag;
-  }
+  // Set drawEnd method to be used depending on whether sprite image supplied
+  const drawEnd = (EndSprite != null) ? drawEndSprite : drawEndFlag;
 
   this.redrawMaze = function(size) {  // Method to redraw maze
     cellSize = size;
     context.lineWidth = cellSize / 50;
     drawMap();
-    drawEndMethod();
+    drawEnd();
   };
   
   function drawMap() {  // Function to draw the whole maze map
@@ -229,7 +230,7 @@ function DrawMaze(Maze, CellSize, EndSprite = null) {
     let colourSwap = true;
 
     for (let y = 0; y < gridSize; y++) {
-      if (gridSize % 2 == 0) {
+      if (gridSize % 2 === 0) {
         colourSwap = !colourSwap;
       }
       for (let x = 0; x < gridSize; x++) {
@@ -258,7 +259,7 @@ function DrawMaze(Maze, CellSize, EndSprite = null) {
 
   clear();  // Clear Canvas
   drawMap();  // Draw the Map
-  drawEndMethod();  // Draw the Goal
+  drawEnd();  // Draw the Goal
 }
 
 // Constructor function for the Player
@@ -268,39 +269,90 @@ function Player(Maze, CellSize, OnComplete, PlayerSprite = null) {
   let halfCellSize = cellSize / 2;
   let moves = 0;  // Players moves
   let player = this;
-  let coords = {x: Maze.startCoord().x, y: Maze.startCoord().y};  // Player Coordinates
+  let position = {x: Maze.startCoord().x, y: Maze.startCoord().y};  // Player Position
   
-  // Set drawPlayerMethod to be used depending on whether sprite supplied
-  let drawPlayerMethod;
-  if (PlayerSprite != null) {
-    drawPlayerMethod = drawSprite;
-  } else {
-    drawPlayerMethod = drawCircle;
-  }
+  // Set drawPlayer method to be used depending on whether sprite supplied
+  const drawPlayer = (PlayerSprite != null) ? drawSprite : drawCircle;
 
   this.redrawPlayer = function(size) {  // Method to redraw player
     cellSize = size;
-    drawPlayerMethod();
+    drawPlayer(position);
   };
 
   this.bindKeyDown = function() {  // Method to add "keydown" event listener
-    window.addEventListener("keydown", check, false);
+    window.addEventListener("keydown", checkKey, false);
 
-    // TODO
-
+    // Function to handle jQuery Mobile "Swipe" event
+    $("#view").swipe({
+      // eslint-disable-next-line no-unused-vars
+      swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
+        console.log(direction);
+        switch (direction) {
+          case "up":
+            checkKey({code: "ArrowUp"});
+            break;
+          case "down":
+            checkKey({code: "ArrowDown"});
+            break;
+          case "left":
+            checkKey({code: "ArrowLeft"});
+            break;
+          case "right":
+            checkKey({code: "ArrowRight"});
+            break;
+        }
+      },
+      threshold: 0
+    });
   };
 
   this.unbindKeyDown = function() {  // Method to remove "keydown" event listener
-    window.removeEventListener("keydown", check, false);
+    window.removeEventListener("keydown", checkKey, false);
 
-    // TODO
-
+    // Remove jQuery Swipe event
+    $("#view").swipe("destroy");
   };
 
-  function check() {
-
-    // TODO
-
+  function checkKey(key) {  // Function to check and action the key press
+    const cell = map[position.x][position.y];
+    switch (key.code) {
+      case "ArrowUp":
+      case "KeyW":
+        if (cell.n === true) {
+          removePlayer(position);
+          position = {x: position.x, y: position.y - 1};
+          moves++;
+          drawPlayer(position);
+        }
+        break;
+      case "ArrowDown":
+      case "KeyS":
+        if (cell.s === true) {
+          removePlayer(position);
+          position = {x: position.x, y: position.y + 1};
+          moves++;
+          drawPlayer(position);
+        }
+        break;
+      case "ArrowLeft":
+      case "KeyA":
+        if (cell.w === true) {
+          removePlayer(position);
+          position = {x: position.x - 1, y: position.y};
+          moves++;
+          drawPlayer(position);
+        }
+        break;
+      case "ArrowRight":
+      case "KeyD":
+        if (cell.e === true) {
+          removePlayer(position);
+          position = {x: position.x + 1, y: position.y};
+          moves++;
+          drawPlayer(position);
+        }
+        break;
+    }
   }
 
   function drawSprite(coord) {  // Function to draw the player sprite, if supplied
@@ -322,51 +374,40 @@ function Player(Maze, CellSize, OnComplete, PlayerSprite = null) {
       OnComplete(moves);
       player.unbindKeyDown();
     }
-
-
   }
 
-  function drawCircle() {  // Function to draw a circle if no sprite supplied
-
-    // TO HERE - TODO
+  function drawCircle(coord) {  // Function to draw a circle if no sprite supplied
+    context.beginPath();
+    context.fillStyle = "yellow";
+    context.arc(
+      (coord.x + 1) * cellSize - halfCellSize,
+      (coord.y + 1) * cellSize - halfCellSize,
+      halfCellSize - 2,
+      0,
+      2 * Math.PI
+    );
+    context.fill();
+    // Check if end point reached
+    if (coord.x === Maze.endCoord().x && coord.y === Maze.endCoord().y) {
+      OnComplete(moves);
+      player.unbindKeyDown();
+    }
   }
 
+  function removePlayer(coord) {  // Function to remove the player from the canvas
+    const offsetLeft = cellSize / 50;
+    const offsetRight = cellSize / 25;
+    context.clearRect(
+      coord.x * cellSize + offsetLeft,
+      coord.y * cellSize + offsetLeft,
+      cellSize - offsetRight,
+      cellSize - offsetRight
+    );
+  }
 
+  drawPlayer(Maze.startCoord());  // Draw Player at Start
+  this.bindKeyDown();  // Activate the "keydown" event listener
 }
-
-
-// TO REMOVE
-
-run();
-
-// setTimeout(() => {
-//   let test1 = new Maze(5, 5);
-//   let test2 = test1.map();
-//   console.log(test2);
-
-//   const cellSize = canvas.width / 5;
-//   let draw = new DrawMaze(test1, context, cellSize, player);
-// }, 1000);
-
-
-
-
-async function run() {
-  const player = await loadImage("./images/pickle.png");
-  // const player = await loadImage("./images/lettuce.png");
-  // player = await changeBrightness(player, 2);
-  // context.drawImage(player, 10, 10, 200, 200);
-  // console.log(player);
-
-  let test1 = new Maze(5, 5);
-  let test2 = test1.map();
-  console.log(test2);
-
-  const cellSize = canvas.width / 5;
-  let draw = new DrawMaze(test1, cellSize, player);
-}
-
-
 
 
 // Function to get a random number up to "max"
@@ -384,11 +425,14 @@ function shuffle(arr) {
 }
 
 // Function to load an image
-function loadImage(path) {
+function loadImage(path, brightness = null) {
   return new Promise((resolve) => {
-    const img = new Image();
+    let img = new Image();
     img.src = path;
     img.onload = () => {
+      if (brightness != null) {
+        img = changeBrightness(img, brightness);
+      }
       resolve(img);
     };
   });
@@ -396,37 +440,35 @@ function loadImage(path) {
 
 // Function to change the brightness of a sprite by a factor
 function changeBrightness(sprite, factor) {
-  return new Promise((resolve) => {
-    // Create a Virtual <canvas> element
-    const virtualCanvas = document.createElement("canvas");
-    virtualCanvas.width = 500;
-    virtualCanvas.height = 500;
-    const virtualContext = virtualCanvas.getContext("2d");
-    // Draw the sprite onto it
-    virtualContext.drawImage(sprite, 0, 0, 500, 500);
-    // Get the image data and loop through it to update it by the factor
-    let imgData = virtualContext.getImageData(0, 0, 500, 500);
-    // console.log(imgData);
-    for (let i = 0; i < imgData.data.length; i += 4) {
-      imgData.data[i] = (imgData.data[i] * factor);
-      imgData.data[i + 1] = (imgData.data[i + 1] * factor);
-      imgData.data[i + 2] = (imgData.data[i + 2] * factor);
-    }
-    // console.log(imgData);
-    // Replace the virtual image on the canvas
-    virtualContext.putImageData(imgData, 0, 0);
-    // Create a new image from the canvas & return it
-    var spriteReturn = new Image();
-    spriteReturn.src = virtualCanvas.toDataURL();
-    virtualCanvas.remove();
-    resolve(spriteReturn);
-  });
+  // Create a Virtual <canvas> element
+  const virtualCanvas = document.createElement("canvas");
+  virtualCanvas.width = 500;
+  virtualCanvas.height = 500;
+  const virtualContext = virtualCanvas.getContext("2d");
+  // Draw the sprite onto it
+  virtualContext.drawImage(sprite, 0, 0, 500, 500);
+  // Get the image data and loop through it to update it by the factor
+  let imgData = virtualContext.getImageData(0, 0, 500, 500);
+  // console.log(imgData);
+  for (let i = 0; i < imgData.data.length; i += 4) {
+    imgData.data[i] = (imgData.data[i] * factor);
+    imgData.data[i + 1] = (imgData.data[i + 1] * factor);
+    imgData.data[i + 2] = (imgData.data[i + 2] * factor);
+  }
+  // console.log(imgData);
+  // Replace the virtual image on the canvas
+  virtualContext.putImageData(imgData, 0, 0);
+  // Create a new image from the canvas & return it
+  var spriteReturn = new Image();
+  spriteReturn.src = virtualCanvas.toDataURL();
+  virtualCanvas.remove();
+  return spriteReturn;
 }
 
 // Function to display a message
 function displayMessage(moves) {
   const movesEl = document.getElementById("moves");
-  movesEl.textContent = `You Moved ${moves} Steps.`;
+  movesEl.textContent = `You moved ${moves} steps.`;
   toggleVisibility("messageContainer");
 }
 
@@ -439,3 +481,63 @@ function toggleVisibility(element) {
     toggleEl.style.visibility = "visible";
   }
 }
+
+// Function to start the game
+function startGame() {
+  // Clear Player if not undefined
+  if (player != undefined) {
+    player.unbindKeyDown();
+    player = null;
+  }
+  // Set Difficulty
+  const levelSelected = document.getElementById("levelSelect");
+  difficulty = levelSelected.options[levelSelected.selectedIndex].value;
+  // Set global values and build maze
+  cellSize = canvas.width / difficulty;
+  maze = new Maze(difficulty, difficulty);
+  draw = new DrawMaze(maze, cellSize, endImg);
+  player = new Player(maze, cellSize, displayMessage, playerImg);
+  // Show maze
+  const mazeContainer = document.getElementById("mazeContainer");
+  if (mazeContainer.style.opacity < "100") {
+    mazeContainer.style.opacity = "100";
+  }
+}
+
+// Window Load Function to set-up the game
+window.onload = async function() {
+  // Get & Fix Canvas size
+  const viewWidth = $("#view").width();
+  const viewHeight = $("#view").height() - 20;
+  if (viewHeight < viewWidth) {
+    context.canvas.width = viewHeight - viewHeight / 100;
+    context.canvas.height = viewHeight - viewHeight / 100;
+  } else {
+    context.canvas.width = viewWidth - viewWidth / 100;
+    context.canvas.height = viewWidth - viewWidth / 100;
+  }
+  // Load the images
+  playerImg = await loadImage("./images/pickle.png");
+  endImg = await loadImage("./images/lettuce.png");
+  // Start the game
+  startGame();
+};
+
+// Function in case of Window Resize
+window.onresize = function () {
+  // Get & Fix Canvas size
+  const viewWidth = $("#view").width();
+  const viewHeight = $("#view").height() - 20;
+  if (viewHeight < viewWidth) {
+    context.canvas.width = viewHeight - viewHeight / 100;
+    context.canvas.height = viewHeight - viewHeight / 100;
+  } else {
+    context.canvas.width = viewWidth - viewWidth / 100;
+    context.canvas.height = viewWidth - viewWidth / 100;
+  }
+  cellSize = canvas.width / difficulty;
+  if (player != null) {
+    draw.redrawMaze(cellSize);
+    player.redrawPlayer(cellSize);
+  }
+};
