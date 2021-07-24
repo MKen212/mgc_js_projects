@@ -116,7 +116,7 @@ function changeClass(newClass) {
 function win () {
   if (correct === images.length) {
     clearInterval(Interval);
-    message.textContent = `Congratulations!! Your time was: ${curSeconds}:${curTenths}`;
+    message.textContent = `Congratulations!! You Won!! Your time is shown above.`;
   }
 }
 
