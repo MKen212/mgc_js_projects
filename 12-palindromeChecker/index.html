@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Palindrome Checker" />
+  <meta name="author" content="Jeffrey Poland, Malarena SA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Palindrome Checker</title>
+
+  <!-- Stylesheets -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header>
+    <!-- Home Button -->
+    <div class="home">
+      <h4>
+        <a class="btn-hero" href="../index.html">Home</a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <!-- Title -->
+    <div class="text-center mb-5">
+      <h1>Palindrome Checker</h1>
+    </div>
+
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <!-- Card for Phrase Entry -->
+          <div class="card mb-5">
+            <div class="card-header bg-info text-center">
+              Enter your word or phrase and click "Check"...
+            </div>
+            <div class="card-body">
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="phrase" placeholder="Word/Phrase" autofocus />
+                <button type="button" class="btn btn-outline-secondary" id="checkBtn">Check</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card for Results -->
+          <div class="card mb-5">
+            <div class="card-header bg-warning text-center">
+              Results
+            </div>
+            <div class="card-body">
+              <div class="card-text overflow-auto" id="results">
+                <!-- Placeholder for Results -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src="./app.js"></script>
+</body>
+
+</html>
