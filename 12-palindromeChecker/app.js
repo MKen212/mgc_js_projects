@@ -11,6 +11,16 @@ const resultsEl = document.getElementById("results");
 const checkBtn = document.getElementById("checkBtn");
 checkBtn.addEventListener("click", checkPhrase);
 
+// Setup keypress event listener on "Phrase" input
+phraseEl.addEventListener("keypress", checkKey);
+
+
+// Function to check if the "Enter" key was pressed
+function checkKey(event) {
+  if (event.key === "Enter") {
+    checkPhrase();
+  }
+}
 
 // Function to check the phrase passed with the click event
 function checkPhrase() {
