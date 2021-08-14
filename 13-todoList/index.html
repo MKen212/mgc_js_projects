@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="ToDo List" />
+  <meta name="author" content="Sagar, Malarena SA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>To-Do List</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="home">
+      <h4>
+        <!-- Home Button -->
+        <a class="btn-hero" href="../index.html">Home</a>
+        <!-- Title -->
+        <h1>To-Do List</h1>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <div class="tasker">
+      <!-- Error message -->
+      <div class="error" id="errorMessage">Please enter a task</div>
+      
+      <!-- Task Entry -->
+      <div class="tasker-header">
+        <input type="text" class="header-input" id="taskInput" placeholder="Enter a task" />
+        <button class="header-button" id="addTaskBtn"><i class="fa fa-fw fa-plus"></i></button>
+      </div>
+
+      <!-- Task List -->
+      <div class="tasker-body">
+        <ul class="task-list" id="taskList"></ul>
+      </div>
+    </div>
+  </main>
+  
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  <script src="./app.js" defer></script>
+</body>
+
+</html>
