@@ -1,0 +1,68 @@
+/* CSS for 14-Timeline */
+
+/* Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: normal 16px/1.5 "Helvetica Neue", sans-serif;
+  background: #456990;
+  color: #fff;
+  overflow-x: hidden;
+  padding-bottom: 50px;
+}
+
+/* Home Div */
+.home {
+  font-family: "Roboto", sans-serif;
+  margin: 30px auto;
+  text-align: center;
+}
+
+/* Home Button */
+.btn-hero {
+  background: transparent;
+  color: white;
+  letter-spacing: 0.1rem;
+  display: inline-block;
+  font-weight: 700;
+  transition: all 0.3s linear;
+  border: 2px solid white;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.btn-hero:hover {
+  color: black;
+  background: white;
+}
+
+/* INTRO SECTION */
+.intro {
+  background: #f45b69;
+  padding: 100px 0;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
