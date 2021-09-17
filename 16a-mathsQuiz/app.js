@@ -2,6 +2,14 @@
 "use strict";
 // 16a - Maths Quiz JS
 
+// Global Variables
+let questions = [];  // Array of Questions
+let questionCounter = 0;  // Tracks question number
+let selections = [];  // Array containing user answers
+
+// Get HTML Elements
+const quiz = $("#quiz");  // Quiz <div>
+
 // Function to get the questions from a JSON file
 async function getQuestions() {
   const response = await fetch("./questions.json");
@@ -11,41 +19,100 @@ async function getQuestions() {
 
 // Function to create and return a <div> containing the question and answer selection
 function createQuestionElement(index) {
-  // TODO
+  const qElement = $("<div>", {
+    id: "question"
+  });
+
+  // Question Header
+  const header = $(`<h2>Question ${index + 1}:</h2>`);
+  qElement.append(header);
+
+  // Question Body
+  const question = $(`<p>${questions[index].question}</p>`);
+  qElement.append(question);
+
+  // Multi-choice Answers
+  const radioButtons = createRadios(index);
+  qElement.append(radioButtons);
+
+  return qElement;
 }
 
 // Function to create a list of answer choices
-function  createRadios(index) {
-  // TODO
-}
-
-// Function to read the user selection and push the values into an array
-function choose() {
-  // TODO
+function createRadios(index) {
+  const radioList = $("<ul>");
+  for (let i = 0; i < questions[index].choices.length; i++) {
+    const item = $("<li>");
+    const input = `<input type="radio" name="answer" value="${i}" />${questions[index].choices[i]}`;
+    item.append(input);
+    radioList.append(item);
+  }
+  return radioList;
 }
 
 // Function to display a question
 function displayQuestion() {
-  // TODO
+  quiz.fadeOut(function() {
+    // Remove existing question
+    $("#question").remove();
+
+    if (questionCounter < questions.length) {
+      // Get Next Question and Display
+      const nextQuestion = createQuestionElement(questionCounter);
+      quiz.append(nextQuestion).fadeIn();
+      
+      // Set checkbox to "checked" if question previously answered
+      if (!(isNaN(selections[questionCounter]))) {
+        $(`input[value=${selections[questionCounter]}]`).prop("checked", true);
+      }
+
+      // Control display of "Prev" button
+      if (questionCounter === 1) {
+        $("#prev").show();
+      } else if (questionCounter === 0) {
+        $("#prev").hide();
+        $("#next").show();
+      }
+    } else {
+      // No more questions - Display score
+      const scoreElem = displayScore();
+      quiz.append(scoreElem).fadeIn();
+      $("#prev").hide();
+      $("#next").hide();
+      $("#start").show();
+    }
+  });
+}
+
+// Function to read the user selection and push the values into an array
+function choose() {
+  selections[questionCounter] = +$(`input[name="answer"]:checked`).val();
+  // Uses jQuery to find the input element clicked and push the "value" into [selections]
 }
 
 // Function to compute and return the score
 function displayScore() {
-  // TODO
+  const scoreElem = $("<p>", {
+    id: "question"
+  });
+
+  // Loop through answers and check against questions.correctAnswer
+  let numCorrect = 0;
+  for (let i = 0; i < selections.length; i++) {
+    if(selections[i] === questions[i].correctAnswer) {
+      numCorrect++;
+    }
+  }
+
+  scoreElem.append(`You got ${numCorrect} questions out of ${questions.length} correct!!`);
+  return scoreElem;
 }
 
 
 // Startup function to initiate quiz on Window Load
 window.onload = async () => {
   // Load questions
-  const questions = await getQuestions();
-
-  // Global Variables
-  let questionCounter = 0;  // Tracks question number
-  let selections = [];  // Array containing user choices
-
-  // Get HTML Elements
-  const quiz = $("#quiz");  // Quiz <div>
+  questions = await getQuestions();
 
   // Display first question
   displayQuestion();
@@ -111,16 +178,10 @@ window.onload = async () => {
 
   // Animate buttons on hover
   $(".button").on("mouseenter", (event) => {
-    console.log(event);
-
-    // TO HERE - NOT WORKING!
-
-
-
-    $(this).addClass("active");
+    $(event.currentTarget).addClass("active");
   });
 
-  $(".button").on("mouseleave", () => {
-    $(this).removeClass("active");
+  $(".button").on("mouseleave", (event) => {
+    $(event.currentTarget).removeClass("active");
   });
 };
