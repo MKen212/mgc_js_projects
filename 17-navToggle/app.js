@@ -1,5 +1,5 @@
 "use strict";
-// 15 - Nav Toggle JS
+// 17 - Nav Toggle JS
 
 // Get HTML Elements
 const menuToggleEl = document.getElementById("menuToggle");

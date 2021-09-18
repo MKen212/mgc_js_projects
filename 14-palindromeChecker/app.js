@@ -1,5 +1,5 @@
 "use strict";
-// 12 - Palindrome Checker JS
+// 14 - Palindrome Checker JS
 
 // Global Variables
 

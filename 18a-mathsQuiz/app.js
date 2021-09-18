@@ -1,6 +1,6 @@
 /* global $ */
 "use strict";
-// 16a - Maths Quiz JS
+// 18a - Maths Quiz JS
 
 // Global Variables
 let questions = [];  // Array of Questions

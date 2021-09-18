@@ -1,5 +1,5 @@
 "use strict";
-// 11 - Tip Calculator JS
+// 13 - Tip Calculator JS
 
 // Global Variables
 let billTotal = 0;  // Bill Amount

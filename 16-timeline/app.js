@@ -1,5 +1,5 @@
 "use strict";
-// 14 - Timeline JS
+// 16 - Timeline JS
 
 // Get HTML <li> elements
 const listItems = document.querySelectorAll(".timeline li");

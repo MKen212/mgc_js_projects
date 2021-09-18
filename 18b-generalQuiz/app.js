@@ -1,5 +1,5 @@
 "use strict";
-// 16B - General Quiz JS
+// 18B - General Quiz JS
 
 // Constructor Function for Quiz
 function Quiz(questions) {
