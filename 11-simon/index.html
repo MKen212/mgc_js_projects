@@ -1,14 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="description" content="Simon Game" />
-  <meta name="author" content="Author" />
+  <meta name="author" content="Beay Carnes / Malarena SA" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>Simon Game</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Audio Files -->
+  <audio id="clip1"><source src="./sounds/simonSound1.mp3" type="audio/mpeg" /></audio>
+  <audio id="clip2"><source src="./sounds/simonSound2.mp3" type="audio/mpeg" /></audio>
+  <audio id="clip3"><source src="./sounds/simonSound3.mp3" type="audio/mpeg" /></audio>
+  <audio id="clip4"><source src="./sounds/simonSound4.mp3" type="audio/mpeg" /></audio>
 </head>
+
 <body>
-  
+  <!-- Header -->
+  <header>
+    <div class="home">
+      <h4>
+        <!-- Home Button -->
+        <a class="btn-hero" href="../index.html">Home</a>
+        <!-- Title -->
+        <h1>Simon Game</h1>
+      </h4>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <div id="outerCircle">
+    <!-- Buttons -->
+    <div id="topLeft"></div>
+    <div id="topRight"></div>
+    <div id="bottomLeft"></div>
+    <div id="bottomRight"></div>
+
+    <!-- Control Panel -->
+    <div id="innerCircle">
+      <!-- Label -->
+      <div class="font-effect-emboss" id="label">SIMON!</div>
+      
+      <!-- Switches -->
+      <div id="switches">
+        <input type="checkbox" class="toggle" id="powerBtn" />
+        <button class="button" id="startBtn">Start</button>
+        <input type="checkbox" class="toggle" id="strictBtn" />
+      </div>
+      <div class="text1">
+        <span>POWER</span><span>STRICT</span>
+      </div>
+
+      <!-- Turn Counter -->
+      <div id="turn"></div>
+      <div class="text2">
+        COUNT
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="./app.js" defer></script>
 </body>
+
 </html>
