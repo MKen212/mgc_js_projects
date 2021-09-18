@@ -3,16 +3,56 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="DescriptionContent" />
-  <meta name="keywords" content="Keywords" />
-  <meta name="author" content="Author" />
+  <meta name="description" content="General Quiz" />
+  <meta name="author" content="Jason Chan / Malarena SA" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Document</title>
+  <title>General Quiz</title>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-  
+  <div class="grid">
+    <div class="centered grid__col--8">
+      <header>
+        <!-- Home Button & Title-->
+        <h4><a class="btn-hero" href="../index.html">Home</a></h4>
+        <h1>General Quiz</h1>
+      </header>
+
+      <!-- Score -->
+      <h3 id="score"></h3>
+
+      <main id="quiz">
+        <!-- Question -->
+        <h2 class="headline-secondary--grouped" id="question"></h2>
+
+        <!-- Choices -->
+        <p id="choice0"></p>
+        <button class="btn--default" id="guess0">Select Answer</button>
+
+        <p id="choice1"></p>
+        <button class="btn--default" id="guess1">Select Answer</button>
+
+        <p id="choice2"></p>
+        <button class="btn--default" id="guess2">Select Answer</button>
+
+        <p id="choice3"></p>
+        <button class="btn--default" id="guess3">Select Answer</button>
+      </main>
+
+      <footer>
+        <!-- Progress -->
+        <p id="progress">Question x of y</p>
+        <p>Made with HTML, CSS & JavaScript!</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="./app.js"></script>
 </body>
 
 </html>
