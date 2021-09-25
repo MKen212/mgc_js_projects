@@ -39,7 +39,7 @@ body {
   background: black;
 }
 
-#outerCircle {
+.outerCircle {
   background: #385a94;
   border-radius: 50%;
   height: 500px;
@@ -52,7 +52,7 @@ body {
   box-shadow: 8px 8px 15px 5px #888888;
 }
 
-#topLeft, #topRight, #bottomLeft, #bottomRight, #innerCircle {
+#topLeft, #topRight, #bottomLeft, #bottomRight, .innerCircle {
   position: absolute;
   height: 250px;
   width: 250px;
@@ -97,7 +97,7 @@ body {
   margin: 0px 0px -250px 0px;
 }
 
-#innerCircle {
+.innerCircle {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
@@ -151,7 +151,7 @@ body {
   margin-top: 200px;
 }
 
-#turn {
+#turnCounter {
   position: absolute;
   background: #330000;
   color: red;
