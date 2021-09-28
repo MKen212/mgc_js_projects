@@ -1,0 +1,50 @@
+/* CSS for 12-Platformer */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  align-content: center;
+  align-items: space-around;
+  background-color: #202830;
+  display: grid;
+  justify-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+canvas {
+  image-rendering: pixelated;
+}
+
+#menu {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  cursor: pointer;
+  display: grid;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: 8px;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  user-select: none;
+}
+
+#menu p {
+  columns: #ffffff;
+  font-size: 2.0em;
+}
+
+#menu-list {
+  display: none;
+}
+
+#menu-list a {
+  color: #ffffff;
+  font-size: 1.5em;
+  text-decoration: none;
+}
