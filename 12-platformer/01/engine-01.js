@@ -4,11 +4,11 @@
 Copyright (c) Frank Poth 2018
 This is a fixed time step game loop. It can be used for any game and will ensure
 that game state is updated at the same rate across different devices which is important
-for uniform gameplay. Imagine playing your favorite game on a new phone and suddenly
+for uniform gameplay. Imagine playing your favourite game on a new phone and suddenly
 it's running at a different speed. That would be a bad user experience, so we fix
 it with a fixed step game loop. In addition, you can do things like frame dropping
 and interpolation with a fixed step loop, which allow your game to play and look
-smooth on slower devices rather than freezing or lagging to the point of unplayability.
+smooth on slower devices rather than freezing or lagging to the point of un-playability.
 */
 
 const Engine = function(timeStep, update, render) {
@@ -22,7 +22,7 @@ const Engine = function(timeStep, update, render) {
   this.update = update;  // The update function to run
   this.render = render;  // The render function to run
 
-  // Run Method
+  // Run Method to loop through the game per cycle
   this.run = function(timeStamp) {
     // One cycle of the game loop
     this.accumulatedTime += timeStamp - this.time;
@@ -69,11 +69,10 @@ Engine.prototype = {
   start: function() {
     this.accumulatedTime = this.timeStep;
     this.time = window.performance.now();
-    this.animationFrameRequest = window.animationFrameRequest(this.handleRun);
+    this.animationFrameRequest = window.requestAnimationFrame(this.handleRun);
   },
 
   stop: function() {
     window.cancelAnimationFrame(this.animationFrameRequest);
   }
-
 };
