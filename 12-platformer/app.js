@@ -19,7 +19,7 @@ let part = String(window.location).split("?")[1];
 // Set default part if not within allowed selected
 switch (part) {
   case "01":
-  // case "02":
+  case "02":
   // case "03":
   // case "04":
   // case "05":
@@ -27,7 +27,7 @@ switch (part) {
   // case "07":
     break;
   default:
-    part = "01";
+    part = "02";
 }
 
 // Load relevant JavaScript files into <script> elements for selected part
