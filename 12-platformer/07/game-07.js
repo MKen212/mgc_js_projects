@@ -1,7 +1,8 @@
-/*global temp */
-// TEMP
+"use strict";
 
-let confDisp = document.createElement("h3");
-confDisp.style.color = "lightblue";
-confDisp.textContent = `game-07.js LOADED`;
-temp.appendChild(confDisp);
+/*
+Copyright (c) Frank Poth 2018
+
+*/
+
+console.log(`${parts[part][3]} - Loaded!`);

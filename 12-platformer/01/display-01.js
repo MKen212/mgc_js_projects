@@ -13,7 +13,7 @@ const Display = function(canvas) {
   // BufferColour Method to fill the buffer canvas with a solid colour
   this.bufferColour = function(colour) {
     this.buffer.fillStyle = colour;
-    this.buffer.fillRect(0, 0, this.buffer.canvas.width, this.buffer. canvas.height);
+    this.buffer.fillRect(0, 0, this.buffer.canvas.width, this.buffer.canvas.height);
   };
 
   // Render Method to draw buffer to live canvas

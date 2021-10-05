@@ -1,7 +1,8 @@
-/*global temp */
-// TEMP
+"use strict";
 
-let confCont = document.createElement("h3");
-confCont.style.color = "lightblue";
-confCont.textContent = `controller-07.js LOADED`;
-temp.appendChild(confCont);
+/*
+Copyright (c) Frank Poth 2018
+
+*/
+
+console.log(`${parts[part][0]} - Loaded!`);
