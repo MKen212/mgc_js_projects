@@ -2,7 +2,7 @@
 
 /*
 Copyright (c) Frank Poth 2018
-This Display class contains new functions to draw a rectangle to the buffer and fill the
+This Display class contains new methods to draw a rectangle to the buffer and fill the
 the whole canvas. The resize function has been updated to resize based on parameters and
 the resize event handler is moved to the Main class as it now has input from multiple
 other classes.
@@ -33,7 +33,7 @@ const Display = function(canvas) {
   
   // Resize Method to alter the canvas size if the window is re-sized
   this.resize = function(width, height, heightWidthRatio) {
-    // Resize canvas
+    // Resize canvas keeping the same "world" aspect ratio
     if (height / width > heightWidthRatio) {
       this.context.canvas.height = width * heightWidthRatio;
       this.context.canvas.width = width;
