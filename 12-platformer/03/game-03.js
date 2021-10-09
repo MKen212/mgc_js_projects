@@ -110,13 +110,6 @@ Game.World.Player.prototype = {
 
   jump: function() {
     if (!this.jumping) {
-      // Change to random colour (#hex) on each new jump
-      this.colour = `#${Math.floor(Math.random() * 16777216).toString(16)}`;
-      /* NOTE that toString(16) will not add a leading zero to a hex value, so the
-      following code adds it */
-      if (this.colour.length != 7) {
-        this.colour = this.colour.slice(0, 1) + "0" + this.colour.slice(1, 6);
-      }
       this.jumping = true;
       this.velocityY -= 20;
     }
