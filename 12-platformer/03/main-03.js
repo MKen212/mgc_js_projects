@@ -3,7 +3,12 @@
 
 /*
 Copyright (c) Frank Poth 2018
-
+Changes since the last part:
+1. The render() method has been updated to call the display.drawMap() and
+   display.drawPlayer() methods using the game.world.map and game.world.player data.
+2. The resize() and engine.start() calls are placed inside a "load" event listener that
+   is added to display.tileSheet.image
+3. The sprite tile sheet is initialised at the end
 */
 
 window.addEventListener("load", function() {
