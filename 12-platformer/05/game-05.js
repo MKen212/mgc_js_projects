@@ -409,26 +409,56 @@ Game.World.Object.prototype = {
 
 // Animator Class
 Game.World.Object.Animator = function(frameSet, delay) {
-  
-  // TO HERE
-  
-  // TODO
-
+  this.count = 0;  // Used to count the number of frames within a loop
+  this.delay = (delay >= 1) ? delay : 1;  // Min number of frames to show each image
+  this.frameSet = frameSet;  // FrameSet currently in use
+  this.frameIndex = 0;  // Current Index within the FrameSet
+  this.frameValue = frameSet[0];  // Current Value within the FrameSet
+  this.mode = "pause";  // Current animation mode
 };
 
 Game.World.Object.Animator.prototype = {
   constructor: Game.World.Object.Animator,
 
+  // Animate method to control what animation is processed based on the current mode
   animate: function() {
-    // TODO
+    switch (this.mode) {
+      case "loop":
+        // Run the loop to show each frame of the frameSet
+        this.loop();
+        break;
+      case "pause":
+        // Do nothing other than show the current frame!
+        break;
+    }
   },
 
+  // ChangeFrameSet method to change the current frameSet in use
   changeFrameSet: function(frameSet, mode, delay = 10, frameIndex = 0) {
-    // TODO
+    if (this.frameSet === frameSet) {
+      // No change required if already using the new frameSet
+      return;
+    }
+
+    this.count = 0;
+    this.delay = delay;
+    this.frameSet = frameSet;
+    this.frameIndex = frameIndex;
+    this.frameValue = frameSet[frameIndex];
+    this.mode = mode;
   },
 
+  // Loop method used to loop through the frameSet
   loop: function() {
-    // TODO
+    this.count++;
+
+    while (this.count > this.delay) {
+      this.count -= this.delay;
+      // Get next frameIndex or cycle back to 0 if passed the end of the array
+      this.frameIndex = (this.frameIndex < this.frameSet.length - 1) ? this.frameIndex + 1 : 0;
+      // Get new frameSet value
+      this.frameValue = this.frameSet[this.frameIndex];
+    }
   }
 };
 
@@ -456,7 +486,12 @@ Game.World.Object.Player.prototype = {
   They are just hardcoded in here now, but when the tileSet information is eventually
   loaded from a json file, these will be allocated dynamically in some sort of loading function. */
   frameSets: {
-    // TODO
+    "idleLeft": [0],
+    "jumpLeft": [1],
+    "moveLeft": [2, 3, 4, 5],
+    "idleRight": [6],
+    "jumpRight": [7],
+    "moveRight": [8, 9, 10, 11]
   },
 
   jump: function() {
@@ -482,7 +517,36 @@ Game.World.Object.Player.prototype = {
   player and the world. This gives the most accurate animations for what the player is
   doing movement-wise on the screen. */
   updateAnimation: function() {
-    // TODO
+    if (this.velocityY < 0) {
+      // Player is moving up / jumping
+      if (this.directionX < 0) {
+        // Player is jumping whilst facing left
+        this.changeFrameSet(this.frameSets["jumpLeft"], "pause");
+      } else {
+        // Player is jumping whilst facing right
+        this.changeFrameSet(this.frameSets["jumpRight"], "pause");
+      }
+    } else if (this.directionX < 0) {
+      // Player is facing left
+      if (this.velocityX < -0.1) {
+        // Player is moving whilst facing left
+        this.changeFrameSet(this.frameSets["moveLeft"], "loop", 5);
+      } else {
+        // Player is NOT moving whilst facing left
+        this.changeFrameSet(this.frameSets["idleLeft"], "pause");
+      }
+    } else if (this.directionX > 0) {
+      // Player is facing right
+      if (this.velocityX > 0.1) {
+        // Player is moving whilst facing right
+        this.changeFrameSet(this.frameSets["moveRight"], "loop", 5);
+      } else {
+        // Player is NOT moving whilst facing right
+        this.changeFrameSet(this.frameSets["idleRight"], "pause");
+      }
+    }
+
+    this.animate();
   },
 
   // Method to update the position of the player
@@ -502,7 +566,7 @@ Game.World.Object.Player.prototype = {
   }
 };
 
-// Assign the Object AND Animator prototype methods to the Player
+// Assign the Object AND Animator prototypes to the Player
 Object.assign(Game.World.Object.Player.prototype, Game.World.Object.prototype);
 Object.assign(Game.World.Object.Player.prototype, Game.World.Object.Animator.prototype);
 Game.World.Object.Player.prototype.constructor = Game.World.Object.Player;
@@ -515,7 +579,27 @@ defines specific regions in the tile set image that correspond to the player's s
 animation frames. Later, this will all be set in a level loading function in order to
 add functionality that adds in another tile sheet graphic with different terrain. */
 Game.World.TileSet = function(columns, tileSize) {
-  // TODO
+  this.columns = columns;
+  this.tileSize = tileSize;
+
+  const frame = Game.World.TileSet.Frame;
+
+  // The frames array contains a separate frame for each player image in the tile sheet
+  this.frames = [
+    new frame(115,  96, 13, 16, 0, -2),  // idle-left image
+    new frame( 50,  96, 13, 16, 0, -2),  // jump-left image
+    new frame(102,  96, 13, 16, 0, -2),  // walk-left images (+ next 3)
+    new frame( 89,  96, 13, 16, 0, -2),
+    new frame( 76,  96, 13, 16, 0, -2),
+    new frame( 63,  96, 13, 16, 0, -2),
+    new frame(  0, 112, 13, 16, 0, -2),  // idle-right image
+    new frame( 65, 112, 13, 16, 0, -2),  // jump-right image
+    new frame( 13, 112, 13, 16, 0, -2),  // walk-right image (+ next 3)
+    new frame( 26, 112, 13, 16, 0, -2),
+    new frame( 39, 112, 13, 16, 0, -2),
+    new frame( 52, 112, 13, 16, 0, -2)
+  ];
+
 };
 
 Game.World.TileSet.prototype = {
@@ -524,13 +608,18 @@ Game.World.TileSet.prototype = {
 
 
 // Frame Class
-/* The Frame class just defines a rectangle region in a tilesheet to cut out.
+/* The Frame class just defines a rectangle region in a tile sheet to cut out.
 It has an x and y offset used for drawing the cut out sprite image to the screen,
 which allows sprites to be positioned anywhere in the tile sheet image rather than
 being forced to adhere to a grid like tile graphics. This is more natural because
 sprites often fluctuate in size and won't always fit in a 16x16 grid. */
 Game.World.TileSet.Frame = function(x, y, width, height, offsetX, offsetY) {
-  // TODO
+  this.x = x;
+  this.y = y;
+  this.width = width;
+  this.height = height;
+  this.offsetX = offsetX;
+  this.offsetY = offsetY;
 };
 
 Game.World.TileSet.Frame.prototype = {

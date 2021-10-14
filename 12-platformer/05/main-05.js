@@ -53,7 +53,9 @@ window.addEventListener("load", function() {
   const render = function() {
     display.drawMap(assetsManager.tileSetImage, game.world.tileSet.columns, game.world.map, game.world.columns, game.world.tileSet.tileSize);
 
+    // Get the current frame for the animated player image
     let frame = game.world.tileSet.frames[game.world.player.frameValue];
+    // Update the destination position using the offsets added to the centre of the tile
     let destinationX = game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offsetX;
     let destinationY = game.world.player.y + frame.offsetY;
     display.drawObject(assetsManager.tileSetImage, frame.x, frame.y, destinationX, destinationY, frame.width, frame.height);
