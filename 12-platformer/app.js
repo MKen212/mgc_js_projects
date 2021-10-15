@@ -23,11 +23,11 @@ switch (part) {
   case "03":
   case "04":
   case "05":
-  // case "06":
+  case "06":
   // case "07":
     break;
   default:
-    part = "05";
+    part = "06";
 }
 
 // Load relevant JavaScript files into <script> elements for selected part
