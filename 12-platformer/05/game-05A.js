@@ -1,6 +1,6 @@
 "use strict";
 
-// POST-TUNNELLING FIX
+// PRE-TUNNELLING FIX
 
 /*
 Copyright (c) Frank Poth 2018
@@ -31,7 +31,7 @@ Game.prototype = {
 
 
 // World Class
-Game.World = function(friction = 0.85, gravity = 2.5) {  // CHANGED FOR TUNNELLING
+Game.World = function(friction = 0.8, gravity = 2) {
   this.friction = friction;
   this.gravity = gravity;
 
