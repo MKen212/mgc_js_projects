@@ -5,7 +5,7 @@
 Copyright (c) Frank Poth 2018
 This Main class contains the following changes since 05:
 1. The AssetsManager class has been updated to load JSON files with the different
-   zones/levels, as well as the images through a renamed method
+   zones/levels, as well as the images through a renamed & more generic method
 2. The update() method now checks for a game.world.door on every frame. If a door is
    selected, the game engine stops and the door's zone is loaded
 3. When the game is first initialised the game.world is loaded using it's default
@@ -17,7 +17,7 @@ window.addEventListener("load", function() {
   /* Each zone has a url that looks like: zoneXX.json, where XX is the current zone
   identifier. When loading zones, we use the following constants together with the
   game.world's zone to identify the file required. */
-  const ZONE_PREFIX = "zone";
+  const ZONE_PREFIX = "06/zone";
   const ZONE_SUFFIX = ".json";
 
   // AssetsManager Class
@@ -32,23 +32,29 @@ window.addEventListener("load", function() {
 
     // Method to load the JSON Zone file
     requestJSON: function(url, callback) {
-      // TODO
+      const request = new XMLHttpRequest();
 
-      // Add "load" event listener to run a callback "once" after the file is loaded and parsed
+      // Add "load" event listener to run the callback using the parsed data "once" after the JSON file is loaded
+      request.addEventListener("load", function() {
+        callback(JSON.parse(this.responseText));
+      }, {once: true});
 
+      // Load the data
+      request.open("GET", url);
+      request.send();
     },
 
-    // Method to load the TileSet PNG Image (Renamed)  -- TO HERE UPDATING!!
+    // Method to load an Image (Renamed & made more generic)
     requestImage: function(url, callback) {
-      this.tileSetImage = new Image();
+      const image = new Image();
 
-      // Add "load" event listener to run a callback "once" after the image is loaded
-      this.tileSetImage.addEventListener("load", function () {
-        callback();
+      // Add "load" event listener to run a callback using the image "once" after the image is loaded
+      image.addEventListener("load", function () {
+        callback(image);
       }, {once: true});
 
       // Load the image
-      this.tileSetImage.src = url;
+      image.src = url;
     }
   };
 
@@ -68,7 +74,7 @@ window.addEventListener("load", function() {
 
   // The render() method to draw the map and the player object
   const render = function() {
-    display.drawMap(assetsManager.tileSetImage, game.world.tileSet.columns, game.world.map, game.world.columns, game.world.tileSet.tileSize);
+    display.drawMap(assetsManager.tileSetImage, game.world.tileSet.columns, game.world.graphicalMap, game.world.columns, game.world.tileSet.tileSize);
 
     // Get the current frame for the animated player image
     let frame = game.world.tileSet.frames[game.world.player.frameValue];
@@ -97,6 +103,19 @@ window.addEventListener("load", function() {
     }
     
     game.update();
+
+    /* Check to see if a door has been selected by the player. If the player collides
+    with a door, he selects it. The engine is then stopped and the assetsManager loads
+    the door's level. */
+    if (game.world.door) {
+      engine.stop();
+
+      // Get new zone data, setup new world & restart game
+      assetsManager.requestJSON(ZONE_PREFIX + game.world.door.destinationZone + ZONE_SUFFIX, (zoneData) => {
+        game.world.setup(zoneData);
+        engine.start();
+      });
+    }
   };
 
   // Load the OBJECTS
@@ -120,10 +139,15 @@ window.addEventListener("load", function() {
   window.addEventListener("keyup", keyDownUp);
   window.addEventListener("resize", resize);
   
-  // Load the TileSet Image and Start the Game via the callback once the image is loaded
-  assetsManager.loadTileSetImage("./rabbit-trap.png", () => {
-    resize();
-    engine.start();
-  });
+  // INITIALISE the zone data and tileSet image using callbacks and once both are loaded start the game
+  assetsManager.requestJSON(ZONE_PREFIX + game.world.zoneID + ZONE_SUFFIX, (zoneData) => {
+    game.world.setup(zoneData);
 
+    assetsManager.requestImage("./rabbit-trap.png", (image) => {
+      assetsManager.tileSetImage = image;
+
+      resize();
+      engine.start();
+    });
+  });
 });
