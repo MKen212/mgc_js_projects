@@ -459,7 +459,6 @@ Game.Player = function(x, y) {
 };
 
 Game.Player.prototype = {
-  // TO DO UPDATE
   constructor: Game.Player,
 
   // The frameSets{} object holds the animation frames to use for each movement
