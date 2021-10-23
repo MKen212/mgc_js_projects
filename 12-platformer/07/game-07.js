@@ -14,10 +14,10 @@ Changes since 06:
 4. Created Game.Object.collideObject for generic collision detection with an object's edges
 5. Added the Game.Carrot{} and Game.Grass{} classes
 6. Added frames for the Carrot & Grass animation images to TileSet.frames[]
-7. Added carrots[], carrotCount * grass[] properties to the World{} class and updated the
+7. Added carrots[], carrotCount & grasses[] properties to the World{} class and updated the
    World.setup() method to draw these to the canvas
-8. Updated the World.update() method to handle carrot collisions and to update the carrot and
-   grass animations
+8. Updated the World.update() method to handle carrot collisions and to update the carrots and
+   grasses animations
 */
 
 const Game = function() {
@@ -435,16 +435,39 @@ Game.MovingObject.prototype.constructor = Game.MovingObject;
 // Carrot Class
 Game.Carrot = function(x, y) {
   // This extends Game.Object and Game.Animation
+  Game.Object.call(this, x, y, 7, 14);
+  Game.Animator.call(this, Game.Carrot.prototype.frameSets["twirl"], 15);
 
-  // TODO
+  // Randomise the starting carrot image
+  this.frameIndex = Math.floor(Math.random() * 2);
 
+  // Set additional attributes used to make carrot appear to float
+  /* baseX and baseY are the point around which the carrot revolves. positionX and
+  positionY are used to track the vector facing away from the base point to give the carrot
+  the floating effect. */
+  this.baseX = x;
+  this.baseY = y;
+  this.positionX = Math.random() * Math.PI * 2;  // Used to make each carrot move differently
+  this.positionY = this.positionX * 2;
 };
 
 Game.Carrot.prototype = {
   constructor: Game.Carrot,
 
-  // TODO
+  // The frameSets{} object holds the animation frames to use for each movement
+  frameSets: {
+    "twirl":  [12, 13]
+  },
 
+  // Method to update the position of the carrot in a figure-of-eight loop
+  updatePosition: function() {
+    // Update the speed at which the carrots move
+    this.positionX += 0.1;
+    this.positionY += 0.2;
+
+    this.x = this.baseX + Math.cos(this.positionX) * 2;  // Sways more side-to-side
+    this.y = this.baseY + Math.sin(this.positionY);
+  }
 };
 
 // Assign the Object AND Animator prototypes to the Carrot
@@ -462,16 +485,20 @@ Game.MovingObject.prototype.constructor = Game.MovingObject;
 Game.Grass = function(x, y) {
   // This extends Game.Animation
   /* NOTE: This is not an Object{} as it does not require collision detection. */
+  Game.Animator.call(this, Game.Grass.prototype.frameSets["wave"], 25);
 
-  // TODO
-
+  // Set the grass position
+  this.x = x;
+  this.y = y;
 };
 
 Game.Grass.prototype = {
   constructor: Game.Grass,
 
-  // TODO
-
+  // The frameSets{} object holds the animation frames to use for each movement
+  frameSets: {
+    "wave": [14, 15, 16, 15]
+  }
 };
 
 // Assign the Animator prototype to the Grass
@@ -628,7 +655,7 @@ Game.TileSet = function(columns, tileSize) {
 
   const frame = Game.Frame;
 
-  // The frames array contains a separate frame for each player image in the tile sheet
+  // The frames array contains a separate frame for each player, carrot and grass image in the tile sheet
   this.frames = [
     new frame(115,  96, 13, 16, 0, -4),  // idle-left image
     new frame( 50,  96, 13, 16, 0, -4),  // jump-left image
@@ -642,7 +669,11 @@ Game.TileSet = function(columns, tileSize) {
     new frame( 26, 112, 13, 16, 0, -4),  // walk-right image (2 of 4)
     new frame( 39, 112, 13, 16, 0, -4),  // walk-right image (3 of 4)
     new frame( 52, 112, 13, 16, 0, -4),  // walk-right image (4 of 4)
-    // TODO UPDATE
+    new frame( 81, 112, 14, 16),  // carrot (1 of 2)
+    new frame( 96, 112, 16, 16),  // carrot (2 of 2)
+    new frame(112, 115, 16, 4),  // grass (1 of 3)
+    new frame(112, 124, 16, 4),  // grass (2 of 3)
+    new frame(112, 119, 16, 4),  // grass (3 of 3)
   ];
 };
 
@@ -671,7 +702,7 @@ Game.World = function(friction = 0.85, gravity = 2) {
   this.door = undefined;  // If the player enters a door the game will set this property to that door and the relevant level will be loaded
   this.carrots = [];  // Array of carrots for the zone
   this.carrotCount = 0;  // The number of carrots collected
-  this.grass = [];  // Array of grass for the zone
+  this.grasses = [];  // Array of grasses for the zone
 
 
   // World Map Data - now loaded from a JSON file in setup() method below
@@ -754,20 +785,32 @@ Game.World.prototype = {
   the this.door variable to change the player's location to wherever that door's
   destination goes. */
   setup: function(zone) {
-    // TODO UPDATE
-
-    // Get the new maps and reset the doors
+    // Get the new maps and reset the doors, carrots and grasses
     this.zoneID = zone.id;
     this.doors = new Array();
+    this.carrots = new Array();
+    this.grasses = new Array();
     this.columns = zone.columns;
     this.rows = zone.rows;
     this.graphicalMap = zone.graphicalMap;
     this.collisionMap = zone.collisionMap;
 
+    // Generate the carrots
+    for (let index = zone.carrots.length - 1; index > -1; --index) {
+      let carrot = zone.carrots[index];
+      this.carrots[index] = new Game.Carrot(carrot[0] * this.tileSet.tileSize + 5, carrot[1] * this.tileSet.tileSize - 2);  // Gets x & y based on grid position x tileSize, +/- offset
+    }
+
     // Generate the doors
     for (let index = zone.doors.length - 1; index > -1; --index) {
       let door = zone.doors[index];
       this.doors[index] = new Game.Door(door);
+    }
+
+    // Generate the grasses
+    for (let index = zone.grasses.length - 1; index > -1; --index) {
+      let grass = zone.grasses[index];
+      this.grasses[index] = new Game.Grass(grass[0] * this.tileSet.tileSize, grass[1] * this.tileSet.tileSize + 12);  // Gets x & y based on grid position x tileSize, +/- offset
     }
 
     // Check if player has just come through a door
@@ -794,10 +837,25 @@ Game.World.prototype = {
 
   // Generic Method to update the player position & movement, check for collisions and then update the animation based on the player's final condition
   update: function() {
-    // TODO UPDATE
     this.player.updatePosition(this.gravity, this.friction);
 
     this.collideObject(this.player);
+
+    // Update Carrots animation and check for any carrot collisions
+    for (let index = this.carrots.length - 1; index > -1; --index) {
+      let carrot = this.carrots[index];
+
+      // Update carrot position and animate
+      carrot.updatePosition();
+      carrot.animate();
+
+      // Check for carrot collisions
+      if (carrot.collideObject(this.player)) {
+        // If collision, remove carrot and increase carrot count
+        this.carrots.splice(this.carrots.indexOf(carrot), 1);
+        this.carrotCount++;
+      }
+    }
 
     // Check for any door collisions
     /* This loops through all the doors in the current zone and checks to see if the
@@ -805,11 +863,18 @@ Game.World.prototype = {
     door property to that door, and it is used to load the next zone. */
     for (let index = this.doors.length - 1; index > -1; --index) {
       let door = this.doors[index];
-      if (door.collideObject(this.player)) {
+      if (door.collideObjectCentre(this.player)) {
         this.door = door;
       }
     }
 
+    // Update Grasses animation
+    for (let index = this.grasses.length - 1; index > -1; --index) {
+      let grass = this.grasses[index];
+      grass.animate();
+    }
+
+    // Update Player animation
     this.player.updateAnimation();
   }
 };

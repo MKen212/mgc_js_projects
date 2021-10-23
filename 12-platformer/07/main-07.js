@@ -73,32 +73,55 @@ window.addEventListener("load", function() {
     display.resize(document.documentElement.clientWidth, document.documentElement.clientHeight, game.world.height / game.world.width);
     display.render();
 
-    // TODO UPDATE
+    // Update the position and fontSize of the Carrot Counter
+    const rectangle = display.context.canvas.getBoundingClientRect();
+
+    p.style.left = `${rectangle.left}px`;
+    p.style.top = `${rectangle.top}px`;
+    p.style.fontSize = `${game.world.tileSet.tileSize * rectangle.height / game.world.height}px`;
   };
 
   // The render() function to draw the map, the player and the grass & carrot objects
   const render = function() {
     let frame = undefined;  // Frame placeholder for each game object
+    let destinationX = undefined;  // Game object destination X position
+    let destinationY = undefined;  // Game object destination Y position
 
     // Draw the map
     display.drawMap(assetsManager.tileSetImage, game.world.tileSet.columns, game.world.graphicalMap, game.world.columns, game.world.tileSet.tileSize);
 
     // Draw the carrots
-    // TODO
+    for (let index = game.world.carrots.length - 1; index > -1; --index) {
+      let carrot = game.world.carrots[index];
+      // Get the current frame for the animated carrot image
+      frame = game.world.tileSet.frames[carrot.frameValue];
+      // Update the destination positions using the offsets added to the centre of the tile
+      destinationX = carrot.x + Math.floor(carrot.width * 0.5 - frame.width * 0.5) + frame.offsetX;
+      destinationY = carrot.y + frame.offsetY;
+      display.drawObject(assetsManager.tileSetImage, frame.x, frame.y, destinationX, destinationY, frame.width, frame.height);      
+    }
 
     // Draw the player
     // Get the current frame for the animated player image
     frame = game.world.tileSet.frames[game.world.player.frameValue];
-    // Update the destination position using the offsets added to the centre of the tile
-    let destinationX = game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offsetX;
-    let destinationY = game.world.player.y + frame.offsetY;
+    // Update the destination positions using the offsets added to the centre of the tile
+    destinationX = game.world.player.x + Math.floor(game.world.player.width * 0.5 - frame.width * 0.5) + frame.offsetX;
+    destinationY = game.world.player.y + frame.offsetY;
     display.drawObject(assetsManager.tileSetImage, frame.x, frame.y, destinationX, destinationY, frame.width, frame.height);
 
     // Draw the grass
-    // TODO
+    for (let index = game.world.grasses.length - 1; index > -1; --index) {
+      let grass = game.world.grasses[index];
+      // Get the current frame for the animated grass image
+      frame = game.world.tileSet.frames[grass.frameValue];
+      // Update the destination positions using the offsets added to the tile
+      destinationX = grass.x + frame.offsetX;
+      destinationY = grass.y + frame.offsetY;
+      display.drawObject(assetsManager.tileSetImage, frame.x, frame.y, destinationX, destinationY, frame.width, frame.height);      
+    }
 
     // Display the Collected Carrot Count
-    // TODO
+    p.textContent = `Carrots: ${game.world.carrotCount}`;
 
     display.render();
   };
