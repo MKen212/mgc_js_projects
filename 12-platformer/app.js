@@ -11,6 +11,7 @@ const parts = {
   "06": ["./02/controller-02.js", "./05/display-05.js", "./06/engine-06.js", "./06/game-06.js", "./06/main-06.js"],
   // "07": ["./02/controller-02.js", "./05/display-05.js", "./06/engine-06.js", "./07/game-07.js", "./07/main-07.js"],
   "07": ["./07/controller-07.js", "./07/display-07.js", "./07/engine-07.js", "./07/game-07.js", "./07/main-07.js"],
+  "08": ["./08/controller-08.js", "./08/display-08.js", "./08/engine-08.js", "./08/game-08.js", "./08/main-08.js"],
 };
 
 // Get the part number from the url entered
@@ -25,9 +26,10 @@ switch (part) {
   case "05":
   case "06":
   case "07":
+  case "08":
     break;
   default:
-    part = "07";
+    part = "08";
 }
 
 // Load relevant JavaScript files into <script> elements for selected part
