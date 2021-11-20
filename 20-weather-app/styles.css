@@ -1,0 +1,88 @@
+/* CSS for 20-Weather App */
+
+/* Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(rgb(47, 150, 163), rgb(48, 62, 143));
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+.header {
+  height: 20vh;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Home Button */
+.btn-hero {
+  background: transparent;
+  color: white;
+  letter-spacing: 0.1rem;
+  display: inline-block;
+  font-weight: 700;
+  transition: all 0.3s linear;
+  border: 2px solid white;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.btn-hero:hover {
+  color: black;
+  background: white;
+}
+
+.location,
+.temperature {
+  height: 30vh;
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.temperature {
+  flex-direction: column;
+}
+
+.degree-section {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.degree-section h2 {
+  font-size: 40px;
+}
+
+.degree-section span {
+  margin: 10px;
+  font-size: 30px;
+}
+
+.hidden {
+  display: none;
+}
+
+.link-back {
+  color: white;
+}

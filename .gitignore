@@ -105,3 +105,6 @@ dist
 
 # local working files
 _localFiles/
+
+# secret config files
+_config.js
