@@ -1,0 +1,228 @@
+/* CSS for 21-Code Editor */
+
+/* Fonts */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Mono);
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+/* Variables */
+:root {
+  --colour1st: LightCoral;
+  --colour2nd: GhostWhite;
+  --colour3rd: Gainsboro;
+}
+
+body {
+  background: var(--colour1st);
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+main {
+  min-height: 100vh;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  -webkit-align-items: center;
+  flex-direction: column;
+  -webkit-flex-direction: column;
+}
+
+/* Home Div */
+.home {
+  font-family: "Roboto", sans-serif;
+  margin: 30px auto;
+  text-align: center;
+}
+
+/* Home Button */
+.btn-hero {
+  background: transparent;
+  color: black;
+  letter-spacing: 0.1rem;
+  display: inline-block;
+  font-weight: 700;
+  transition: all 0.3s linear;
+  border: 2px solid black;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 10px;
+  text-decoration: none;
+}
+
+.btn-hero:hover {
+  color: white;
+  background: black;
+}
+
+.title {
+  color: #fff;
+  text-align: center;
+  font-weight: 300;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  font-size: 2.8em;
+  margin-top: 1.5em;
+}
+
+.title small {
+  display: block;
+  font-size: 0.6em;
+  margin-top: 0.4em;
+}
+
+.credits {
+  color: #fff;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  margin-top: 2em;
+  font-size: 0.8em;
+  opacity: 0.5;
+}
+
+.window {
+  width: 547px;
+  background: var(--colour2nd);
+  border-radius: 0.3em;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.window .window-header {
+  height: 37px;
+  background: var(--colour3rd);
+  position: relative;
+}
+
+.window .window-header .action-buttons {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  margin-top: -5px;
+  width: 10px;
+  height: 10px;
+  background: crimson;
+  border-radius: 50%;
+  box-shadow:
+    15px 0 0 orange,
+    30px 0 0 limegreen;
+}
+
+.window .window-header .language {
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -10px;
+  height: 21px;
+  padding: 0 1em;
+  text-align: right;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  font-family: "Lato" sans-serif;
+  color: dimgrey;
+}
+
+.window .window-header .language:before {
+  content: "asd";
+}
+
+.window .window-header .language:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.window .window-body {
+  position: relative;
+  height: 300px;
+}
+
+.window .window-body .code-input, .window .window-body .code-output {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  border: none;
+  font-family: "PT Mono", monospace;
+  font-size: 0.8em;
+  background: transparent;
+  white-space: pre-wrap;
+  line-height: 1.5em;
+  word-wrap: break-word;
+}
+
+.window .window-body .code-input {
+  opacity: 0.7;
+  margin: 0;
+  color: #999;
+  resize: none;
+}
+
+.window .window-body .code-output {
+  pointer-events: none;
+  z-index: 3;
+  margin: 0;
+  overflow-y: auto;
+}
+
+.window .window-body .code-output code {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 1rem;
+  display: block;
+  color: #666;
+  font-size: 0.8em;
+  font-family: "PT Mono", monospace;
+}
+
+/* Prism.js colours */
+a.token {
+  text-decoration: none;
+}
+
+.token.selector, .token.punctuation, .token.keyword {
+  color: palevioletred;
+}
+
+.token.property, .token.number, .token.string, .token.punctuation, .token.tag-id {
+  color: dodgerblue;
+}
+
+.token.function, .token.attr-name {
+  color: cadetblue;
+}
+
+.token.atrule, .atrule-id {
+  color:blueviolet;
+}
+
+.token.boolean {
+  color: lightslategray;
+}
+
+.token.comment {
+  color: darkgray;
+}
+
+.language-php .variable {
+  color: cadetblue;
+}

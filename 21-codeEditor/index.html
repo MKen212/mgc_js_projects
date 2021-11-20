@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Code Editor" />
+  <meta name="author" content="Claudio Holanda / Malarena SA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Code Editor</title>
+
+  <!-- StyleSheets -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <main class="view">
+    <!-- Home Button -->
+    <div class="home">
+      <h4><a class="btn-hero" href="../index.html">Home</a></h4>
+    </div>
+
+    <!-- Title -->
+    <h1 class="title">
+      Micro Code Editor
+      <small>With syntax highlighting*</small>
+    </h1>
+
+    <!-- Code Editor Window -->
+    <div class="window">
+      <!-- Window Header -->
+      <div class="window-header">
+        <div class="action-buttons"></div>
+        <!-- Language Selection -->
+        <select class="language">
+          <option value="javascript" selected>JavaScript</option>
+          <option value="html">HTML</option>
+          <option value="php">PHP</option>
+        </select>
+      </div>
+
+      <!-- Window Body -->
+      <div class="window-body">
+        <!-- Input -->
+        <textarea class="code-input">// Switch the language and put some code on me :)              ↑↑↑↑↑↑
+// This is a 'Hello World' example.
+
+function greetings(name){
+    name = name || "stranger";
+    return "Hello, " + name + "!";
+}
+
+window.onLoad = alert(greetings());
+        </textarea>
+
+        <!-- Output -->
+        <pre class="code-output">
+          <code class="langauge-javascript">
+            <!-- Placeholder for output -->
+          </code>
+        </pre>
+      </div>
+    </div>
+
+    <!-- Credits -->
+    <div class="credits">
+      *thanks to <a href="https://twitter.com/leaverou">Lea Verou</a> for <a href="http://prismjs.com/">Prism.js</a>
+    </div>
+  </main>
+  
+  <!-- JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/0.0.1/prism.min.js"></script>
+  <script src="./app.js" defer></script>
+</body>
+
+</html>
