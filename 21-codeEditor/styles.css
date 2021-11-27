@@ -1,7 +1,7 @@
 /* CSS for 21-Code Editor */
 
 /* Fonts */
-@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap");
+/* @import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto:400,700&display=swap"); */
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700|PT+Mono);
 
 *, *:before, *:after {
@@ -21,7 +21,7 @@
 
 body {
   background: var(--colour1st);
-  font-family: "Lato", sans-serif;
+  font-family: Lato, sans-serif;
   font-size: 15px;
   margin: 0;
 }
@@ -97,7 +97,7 @@ main {
 .window {
   width: 547px;
   background: var(--colour2nd);
-  border-radius: 0.3em;
+  border-radius: 0.3rem;
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
@@ -135,7 +135,7 @@ main {
   -webkit-appearance: none;
   border: none;
   background: transparent;
-  font-family: "Lato" sans-serif;
+  font-family: Lato, sans-serif;
   color: dimgrey;
 }
 
@@ -161,7 +161,7 @@ main {
   padding: 1rem;
   border: none;
   font-family: "PT Mono", monospace;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   background: transparent;
   white-space: pre-wrap;
   line-height: 1.5em;
@@ -190,7 +190,7 @@ main {
   padding: 1rem;
   display: block;
   color: #666;
-  font-size: 0.8em;
+  font-size: 0.8rem;
   font-family: "PT Mono", monospace;
 }
 
