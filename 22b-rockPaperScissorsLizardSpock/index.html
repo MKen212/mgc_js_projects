@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Rock Paper Scissors Lizard Spock Game" />
+  <meta name="author" content="whatsdev / Malarena SA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Rock Paper Scissors Lizard Spock Game</title>
+
+  <!-- StyleSheets -->
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header>
+    <div class="home">
+      <h4>
+        <!-- Home Button -->
+        <a class="btn-hero" href="../index.html">Home</a>
+        <!-- Title -->
+        <h1>Rock Paper Scissors Lizard Spock Game</h1>
+      </h4>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <!-- Scoreboard -->
+    <div class="scoreboard">
+      <div class="badge" id="userLabel">User</div>
+      <span id="userScore">0</span> : <span id="compScore">0</span>
+      <div class="badge" id="compLabel">Comp</div>
+    </div>
+
+    <!-- Result -->
+    <div class="result">
+      <p>Ready... Set... Go...</p>
+    </div>
+
+    <!-- Choices -->
+    <div class="choices">
+      <!-- Rock -->
+      <div class="choice" id="rock">
+        <img src="./images/icons8-hand-rock-96.png" alt="rock" />
+      </div>
+
+      <!-- Paper -->
+      <div class="choice" id="paper">
+        <img src="./images/icons8-hand-paper-96.png" alt="paper" />
+      </div>
+
+      <!-- Scissors -->
+      <div class="choice" id="scissors">
+        <img src="./images/icons8-hand-scissors-96.png" alt="scissors" />
+      </div>
+
+      <!-- Lizard -->
+      <div class="choice" id="lizard">
+        <img src="./images/icons8-hand-lizard-96.png" alt="lizard" />
+      </div>
+
+      <!-- Spock -->
+      <div class="choice" id="spock">
+        <img src="./images/icons8-spock-96.png" alt="spock" />
+      </div>
+    </div>
+
+    <!-- Instructions -->
+    <p id="instructions">Make your move...</p>
+  </main>
+
+  <footer class="footer">
+    <!-- Credits -->
+    <h5>Icons provided by <a class="link" target="_blank" href="https://icons8.com">Icons8</a></h5>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="./app.js" defer></script>
+</body>
+
+</html>
